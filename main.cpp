@@ -25,8 +25,8 @@ double get_materia(int celda, int numero){
     if (matrix[numero][celda]!=-1){
         return matrix[numero][celda];
     }else{
-        matrix[numero][celda]=get_materia(celda,numero-1)+3*(diferencial/1000)*get_materia(celda,numero-1)*(get_materia(celda+1,numero-1)-get_materia(celda-1,numero-1));
-        matrix[numero][celda]-=(diferencial/(2*pow(TAMANO_DE_MATRIZ,2)))*(get_materia(celda+2,numero-1)-2*get_materia(celda+1,numero-1)+2*get_materia(celda-1,numero-1)-get_materia(celda-2,numero-1));
+        matrix[numero][celda]=get_materia(celda,numero-1)+3*(diferencial*TAMANO_DE_MATRIZ)*get_materia(celda,numero-1)*(get_materia(celda+1,numero-1)-get_materia(celda-1,numero-1));
+        matrix[numero][celda]-=(diferencial*TAMANO_DE_MATRIZ*TAMANO_DE_MATRIZ*TAMANO_DE_MATRIZ/2/*recordar que dif x=1/tamano de matriz*/)*(get_materia(celda+2,numero-1)-2*get_materia(celda+1,numero-1)+2*get_materia(celda-1,numero-1)-get_materia(celda-2,numero-1));
         return matrix[numero][celda];
     }
 }
@@ -54,14 +54,21 @@ int main(){
             if (i!=0){
                 matrix[i][j]=-1;
             }else{
-                matrix[i][j]=-0.5*pow(1/cosh(j/2),2);
+                matrix[i][j]=-0.5*pow(1/cosh(j/2.0),2);
             }
             
         }
     }
     
     cout<<"la cantidad de materia en la celda "<<celda<<" en el numero"<< numero<<" es "<<get_materia(celda,numero-1)<<endl;
-    for (int i=0;i<numero;i++){
+    cout<<endl;
+    for (int j=0;j<TAMANO_DE_MATRIZ;j++){
+            cout<<matrix[0][j]<<" ";
+        }
+        cout<<endl;
+
+    for (int i=0;i<numero/2;i++){
+        cout<<i<<endl;
         for (int j=0;j<TAMANO_DE_MATRIZ;j++){
             cout<<matrix[i][j]<<" ";
         }
